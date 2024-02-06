@@ -29,12 +29,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $errors['enterprise_name'] = 'Utilisateur inconnu';
             } else {
                 // Récupération des informations de l'utilisateur via la méthode getInfos()
-                $UtilisateurInfos = Entreprise::getInfos($_POST['pseudo']);
+                $EntrepriseInfos = Entreprise::getInfos($_POST['enterprise_name']);
 
                 // Utilisation de password_verify pour valider le mot de passe
-                if (password_verify($_POST['password'], $UtilisateurInfos['user_password'])) {
-                    $_SESSION["user"] = $UtilisateurInfos;
-                    unset($_SESSION["user"]["user_password"]);
+                if (password_verify($_POST['enterprise_password'], $EntrepriseInfos['enterprise_password'])) {
+                    $_SESSION["user"] = $EntrepriseInfos;
+                    unset($_SESSION["user"]["enterprise_password"]);
                     // Si la validation du mot de passe est réussie, redirection vers controller-home.php
                     header('Location: controller-home.php');
                 } else {
@@ -45,3 +45,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 }
+
+?>
+
+<?php 
+
+include_once "../views/view-signin.php"
+
+?>
