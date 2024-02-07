@@ -182,11 +182,7 @@ class Entreprise
             $db = new PDO("mysql:host=localhost;dbname=" . DB_NAME, DB_USER, DB_PASS);
 
             // stockage de ma requete dans une variable
-            $sql = "SELECT user_pseudo , user_photo  
-             FROM userprofil 
-             WHERE enterprise_id = :enterprise_id 
-             ORDER BY user_id DESC 
-             LIMIT 5";
+            $sql = "SELECT * FROM userprofil WHERE enterprise_id = :enterprise_id ORDER BY user_id DESC LIMIT 5";
 
             // je prepare ma requête pour éviter les injections SQL
             $query = $db->prepare($sql);

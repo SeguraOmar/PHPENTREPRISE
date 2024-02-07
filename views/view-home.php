@@ -28,7 +28,7 @@
 
     <nav>
         <div class="nav-wrapper background-nav">
-<!-- barre du haut  -->
+            <!-- barre du haut  -->
             <ul id="nav-mobile" class="right hide-on-med-and-down">
                 <li><a href="#">Lien 1</a></li>
                 <li><a href="#">Lien 2</a></li>
@@ -38,14 +38,14 @@
     </nav>
     <!-- barre de navigation laterale gauche  -->
     <div class="row black ">
-        <div class="col s12 m4 l2"> 
+        <div class="col s12 m4 l2">
             <ul id="slide-out" class="sidenav sidenav-fixed grey darken-3 side-nav">
                 <li class="white-text center-align"> Coordonnée de l'entreprise : </li>
                 <li class="white-text"> Nom : <?= $_SESSION['enterprise']['enterprise_name'] ?></li>
                 <li class="white-text">Email : <?= $_SESSION['enterprise']['enterprise_email'] ?></li>
                 <li class="white-text">Siret : <?= $_SESSION['enterprise']['enterprise_siret'] ?></li>
-                <li class="white-text">Adresse : <?= $_SESSION['enterprise']['enterprise_adress']?></li>
-                <li class="white-text">code postal : <?= $_SESSION['enterprise']['enterprise_zipcode']?></li>
+                <li class="white-text">Adresse : <?= $_SESSION['enterprise']['enterprise_adress'] ?></li>
+                <li class="white-text">code postal : <?= $_SESSION['enterprise']['enterprise_zipcode'] ?></li>
                 <li class="white-text">Ville : <?= $_SESSION['enterprise']['enterprise_city'] ?></li>
             </ul>
         </div>
@@ -74,7 +74,7 @@
                     <div class="card deep-purple darken-1">
                         <div class="card-content white-text">
                             <span class="card-title">Total des utilisateurs actif</span>
-                            <p>Utilisateurs actifs : <?= Entreprise::countActifsUsers($_SESSION['enterprise']['enterprise_id'])?></p>
+                            <p>Utilisateurs actifs : <?= Entreprise::countActifsUsers($_SESSION['enterprise']['enterprise_id']) ?></p>
                         </div>
                         <div class="card-action">
                             <a href="#">Détails</a>
@@ -86,7 +86,7 @@
                     <div class="card purple darken-1">
                         <div class="card-content white-text">
                             <span class="card-title">Total des trajets</span>
-                            <p>Total des trajets crées : <?=Entreprise::countTotalTrajets($_SESSION['enterprise']['enterprise_id'])?></p>
+                            <p>Total des trajets crées : <?= Entreprise::countTotalTrajets($_SESSION['enterprise']['enterprise_id']) ?></p>
                         </div>
                         <div class="card-action">
                             <a href="#">Détails</a>
@@ -100,8 +100,12 @@
                     <div class="card teal darken-1">
                         <div class="card-content white-text">
                             <span class="card-title">Les 5 derniers utilisateurs avec comme infos : </span>
-                            <p><?php foreach ($lastFiveUsers as $user):?></p>
-                                <img src="http://BDDPHP/assets/image/<?= $user['user_photo'];?>" alt="Photo de profil">
+                            <?php foreach (Entreprise::lastFiveUsers($_SESSION['enterprise']['enterprise_id']) as $user):
+                          
+                            
+                            ?>
+                                <img src="http://BDDPHP.test/assets/image/<?= $user['user_photo']; ?>" alt="Photo de profil">
+                            <?php endforeach; ?>
                         </div>
                         <div class="card-action">
                             <a href="#">Détails</a>
