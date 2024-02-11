@@ -62,10 +62,6 @@
                             <span class="card-title">Total des utilisateurs</span>
                             <p>nombre d'ulitisateur : <?= Entreprise::countUsers($_SESSION['enterprise']['enterprise_id']) ?></p>
                         </div>
-                        <div class="card-action">
-                            <a href="#">Voir plus</a>
-
-                        </div>
                     </div>
                 </div>
 
@@ -76,9 +72,6 @@
                             <span class="card-title">Total des utilisateurs actif</span>
                             <p>Utilisateurs actifs : <?= Entreprise::countActifsUsers($_SESSION['enterprise']['enterprise_id']) ?></p>
                         </div>
-                        <div class="card-action">
-                            <a href="#">Détails</a>
-                        </div>
                     </div>
                 </div>
                 <!-- Carte 3 -->
@@ -87,9 +80,6 @@
                         <div class="card-content white-text">
                             <span class="card-title">Total des trajets</span>
                             <p>Total des trajets crées : <?= Entreprise::countTotalTrajets($_SESSION['enterprise']['enterprise_id']) ?></p>
-                        </div>
-                        <div class="card-action">
-                            <a href="#">Détails</a>
                         </div>
                     </div>
                 </div>
@@ -104,11 +94,9 @@
                           
                             
                             ?>
+                                <p><?= $user['user_pseudo']?></p>
                                 <img src="http://BDDPHP.test/assets/image/<?= $user['user_photo']; ?>" alt="Photo de profil">
                             <?php endforeach; ?>
-                        </div>
-                        <div class="card-action">
-                            <a href="#">Détails</a>
                         </div>
                     </div>
                 </div>
@@ -118,19 +106,13 @@
                             <span class="card-title">Stats Hebdo (a venir)</span>
                             <p>A venir...</p>
                         </div>
-                        <div class="card-action">
-                            <a href="#">Détails</a>
-                        </div>
                     </div>
                 </div>
                 <div class="col s12 ">
                     <div class="card light-blue darken-4">
                         <div class="card-content white-text">
-                            <span class="card-title">Total des trajets</span>
-                            <p>Aperçu du total trajets...</p>
-                        </div>
-                        <div class="card-action">
-                            <a href="#" class='white-text'>Détails</a>
+                            <span class="card-title">5 derniers trajets</span>
+                            <p><?= Entreprise::lastFiveTrajets($_SESSION['enterprise']['enterprise_id']) ?></p>
                         </div>
                     </div>
                 </div>

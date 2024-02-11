@@ -204,6 +204,36 @@ class Entreprise
             return false;
         }
     }
+    public static function lastFiveTrajets(int $enterprise_id){
+        try {
+            // Création d'un objet $db selon la classe PDO
+            $db = new PDO("mysql:host=localhost;dbname=" . DB_NAME, DB_USER, DB_PASS);
+    
+            // stockage de ma requete dans une variable
+            $sql = "SELECT ride_distance ,ride_date, transport_id 
+        FROM trajet 
+        INNER JOIN userprofil ON userprofil.user_id = ride.user_id WHERE enterprise_id = :enterprise_id";
+    
+            // je prepare ma requête pour éviter les injections SQL
+            $query = $db->prepare($sql);
+    
+            // on relie les paramètres à nos marqueurs nominatifs à l'aide d'un bindValue
+            $query->bindValue(':enterprise_id', $enterprise_id, PDO::PARAM_INT);
+    
+    
+            // on execute la requête
+            $query->execute();
+    
+            // on récupère le résultat de la requête dans une variable
+            $result = $query->fetchALL(PDO::FETCH_ASSOC);
+    
+            // on retourne le résultat
+            return $result;
+        } catch (PDOException $e) {
+            echo 'Erreur : ' . $e->getMessage();
+            return false;
+        }
+    }
 }
 
 //     public static function deleteAccount(int $Entreprise_ID)
@@ -230,34 +260,4 @@ class Entreprise
 // }
 
 
-//     public static function lastFiveTrajets(int $Entreprise_ID){
-//         try {
-//             // Création d'un objet $db selon la classe PDO
-//             $db = new PDO("mysql:host=localhost;dbname=" . DBNAME, USERPSEUDO, USERPASSWORD);
 
-//             // stockage de ma requete dans une variable
-//             $sql = "SELECT Trajet_DistanceParcourue_KM_ ,Trajet_Date, Trajet_Temps , TansportType_ID 
-//         FROM trajet 
-//         INNER JOIN utilisateur ON utilisateur.User_ID = trajet.User_ID WHERE Entreprise_ID = :Entreprise_ID";
-
-//             // je prepare ma requête pour éviter les injections SQL
-//             $query = $db->prepare($sql);
-
-//             // on relie les paramètres à nos marqueurs nominatifs à l'aide d'un bindValue
-//             $query->bindValue(':Entreprise_ID', $Entreprise_ID, PDO::PARAM_INT);
-
-
-//             // on execute la requête
-//             $query->execute();
-
-//             // on récupère le résultat de la requête dans une variable
-//             $result = $query->fetchALL(PDO::FETCH_ASSOC);
-
-//             // on retourne le résultat
-//             return $result;
-//         } catch (PDOException $e) {
-//             echo 'Erreur : ' . $e->getMessage();
-//             return false;
-//         }
-//     }
-// }

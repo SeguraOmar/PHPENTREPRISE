@@ -45,7 +45,7 @@
 
     <div class="container">
         <div class="card">
-            <div class=" col s5 offset-s3">
+            <div class="col s5 offset-s3">
                 <h2 class="card-title center-align">Inscription</h2>
 
                 <form class="col s12" action="controller-signup.php" method="POST" novalidate>
