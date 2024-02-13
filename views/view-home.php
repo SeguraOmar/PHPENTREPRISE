@@ -20,6 +20,35 @@
         .side-nav {
             width: 16rem;
         }
+
+        #user-list-container {
+            display: flex;
+            justify-content: space-evenly;
+            flex-wrap: wrap;
+        }
+
+        .user-card-container {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .user-card {
+            text-align: center;
+            margin: 0 5px;
+        }
+
+        .user-pseudo {
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+
+        .user-photo {
+            width: 8em;
+            height: 14em;
+            object-fit: cover;
+            border-radius: 12px;
+            margin-top: 10px;
+        }
     </style>
 </head>
 
@@ -86,20 +115,23 @@
                 <!-- 
                 carte 4  -->
 
-                <div class="col s6 ">
+                <div id="user-list-container" class="col s12">
                     <div class="card teal darken-1">
                         <div class="card-content white-text">
                             <span class="card-title">Les 5 derniers utilisateurs avec comme infos : </span>
-                            <?php foreach (Entreprise::lastFiveUsers($_SESSION['enterprise']['enterprise_id']) as $user):
-                          
-                            
-                            ?>
-                                <p><?= $user['user_pseudo']?></p>
-                                <img src="http://BDDPHP.test/assets/image/<?= $user['user_photo']; ?>" alt="Photo de profil">
-                            <?php endforeach; ?>
+                            <div class="user-card-container">
+                                <?php foreach (Entreprise::lastFiveUsers($_SESSION['enterprise']['enterprise_id']) as $user) : ?>
+                                    <div class="user-card">
+                                        <p class="user-pseudo"><?= $user['user_pseudo'] ?></p>
+                                        <img class="user-photo" src="http://BDDPHP.test/assets/image/<?= $user['user_photo']; ?>" alt="Photo de profil">
+                                    </div>
+                                <?php endforeach; ?>
+                            </div>
                         </div>
                     </div>
                 </div>
+
+
                 <div class="col s6 ">
                     <div class="card brown">
                         <div class="card-content white-text">
@@ -112,7 +144,15 @@
                     <div class="card light-blue darken-4">
                         <div class="card-content white-text">
                             <span class="card-title">5 derniers trajets</span>
-                            <p><?= Entreprise::lastFiveTrajets($_SESSION['enterprise']['enterprise_id']) ?></p>
+                            <?php
+                            $lastFiveTrajets = Entreprise::lastFiveTrajets($_SESSION['enterprise']['enterprise_id']);
+
+                            echo '<p>';
+                            foreach ($lastFiveTrajets as $trajet) {
+                                echo $trajet . '<br>'; // Ou utilisez la fonction d'affichage appropriée
+                            }
+                            echo '</p>';
+                            ?>
                         </div>
                     </div>
                 </div>

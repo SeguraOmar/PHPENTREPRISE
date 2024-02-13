@@ -211,7 +211,7 @@ class Entreprise
     
             // stockage de ma requete dans une variable
             $sql = "SELECT ride_distance ,ride_date, transport_id 
-        FROM trajet 
+        FROM ride 
         INNER JOIN userprofil ON userprofil.user_id = ride.user_id WHERE enterprise_id = :enterprise_id";
     
             // je prepare ma requête pour éviter les injections SQL
