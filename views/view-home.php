@@ -144,15 +144,11 @@
                     <div class="card light-blue darken-4">
                         <div class="card-content white-text">
                             <span class="card-title">5 derniers trajets</span>
-                            <?php
-                            $lastFiveTrajets = Entreprise::lastFiveTrajets($_SESSION['enterprise']['enterprise_id']);
-
-                            echo '<p>';
-                            foreach ($lastFiveTrajets as $trajet) {
-                                echo $trajet . '<br>'; // Ou utilisez la fonction d'affichage appropriée
-                            }
-                            echo '</p>';
-                            ?>
+                            <?php foreach (Entreprise::lastFiveTrajets($_SESSION['enterprise']['enterprise_id']) as $trajet) : ?>
+                                <h2>Informations</h2>
+                                <p><?= $trajet['ride_date'] ?></p>
+                                <p><?= $trajet['ride_distance'] ?></p>
+                            <?php endforeach; ?>
                         </div>
                     </div>
                 </div>

@@ -204,29 +204,28 @@ class Entreprise
             return false;
         }
     }
-    public static function lastFiveTrajets(int $enterprise_id){
+    public static function lastFiveTrajets(int $enterprise_id)
+    {
         try {
             // Création d'un objet $db selon la classe PDO
             $db = new PDO("mysql:host=localhost;dbname=" . DB_NAME, DB_USER, DB_PASS);
-    
+
             // stockage de ma requete dans une variable
-            $sql = "SELECT ride_distance ,ride_date, transport_id 
-        FROM ride 
-        INNER JOIN userprofil ON userprofil.user_id = ride.user_id WHERE enterprise_id = :enterprise_id";
-    
+            $sql = "SELECT * FROM ride INNER JOIN userprofil ON userprofil.user_id = ride.user_id WHERE enterprise_id = :enterprise_id";
+
             // je prepare ma requête pour éviter les injections SQL
             $query = $db->prepare($sql);
-    
+
             // on relie les paramètres à nos marqueurs nominatifs à l'aide d'un bindValue
             $query->bindValue(':enterprise_id', $enterprise_id, PDO::PARAM_INT);
-    
-    
+
+
             // on execute la requête
             $query->execute();
-    
+
             // on récupère le résultat de la requête dans une variable
             $result = $query->fetchALL(PDO::FETCH_ASSOC);
-    
+
             // on retourne le résultat
             return $result;
         } catch (PDOException $e) {
@@ -258,6 +257,3 @@ class Entreprise
 
 
 // }
-
-
-
