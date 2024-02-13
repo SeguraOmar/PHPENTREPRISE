@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inscription</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <link rel="stylesheet" href="../assets/style/style.css">
     <style>
         body {
@@ -34,6 +35,8 @@
             background-color: #2bbbad;
         }
     </style>
+
+
 </head>
 
 <body>
@@ -135,12 +138,18 @@
                         </div>
                     </div>
 
-                    <div class="row">
-                        <div class="input-field col s12">
-                            <button class="btn waves-effect waves-light" type="submit">S'enregistrer</button>
-                            <a href="../controllers/controller-signin.php" class="btn waves-effect waves-light">Se connecter</a>
-                        </div>
+                    <div class="g-recaptcha" data-sitekey="6LddeXEpAAAAAF0hX9djFa0flERCNPLgQe5HEBWb"></div>
+                
+                
+
+
+                <div class="row">
+                    <div class="input-field col s12">
+                        <button class="btn waves-effect waves-light" type="submit">S'enregistrer</button>
+                        <a href="../controllers/controller-signin.php" class="btn waves-effect waves-light">Se connecter</a>
                     </div>
+                </div>
+
                 </form>
             </div>
         </div>

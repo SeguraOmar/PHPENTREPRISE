@@ -2,10 +2,29 @@
 // j'appelle ma config et mon utilisateur
 require_once '../config/config.php';
 require_once "../models/enterprise.php";
+require_once '../captcha/autoload.php';
 
 // Vérification des données postées depuis le formulaire
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $errors = [];
+
+    $caca = false;
+    $recaptcha = new \ReCaptcha\Recaptcha("6LddeXEpAAAAAEVSCjI0V24Ezb6T2cmxkD9ksXa0");
+
+    $gRecaptchaResponse = $_POST['g-recaptcha-response'];
+
+    $resp = $recaptcha->setExpectedHostname('phpentreprise.test')
+        ->verify($gRecaptchaResponse);
+
+    if ($resp->isSuccess()) {
+
+        $caca = true;
+        echo "Success!";
+    } else {
+        $errors = $resp->getErrorCodes();
+        $caca = false;
+        var_dump($errors);
+    }
 
     // Vérification du nom
     if (empty($_POST["enterprise_name"])) {
@@ -45,8 +64,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $errors['enterprise_zipcode'] = "Champs obligatoire.";
     } else if (!preg_match("/^\d{5}(?:-\d{4})?$/", $_POST["enterprise_zipcode"])) {
         $errors['enterprise_zipcode'] = "Le code postal est invalide.";
-    } else if (strlen($_POST["enterprise_zipcode"])!== 5) {
-        $errors ["enterprise_siret"] = "Le code postal doit comporter 5 caractères.";
+    } else if (strlen($_POST["enterprise_zipcode"]) !== 5) {
+        $errors["enterprise_siret"] = "Le code postal doit comporter 5 caractères.";
     }
 
     // Vérification de la ville de l'entreprise
@@ -67,7 +86,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
     // Afficher la synthèse des informations et le message de confirmation
-    if (empty($errors)) {
+    if (empty($errors) && $caca = true) {
+
 
         // Instance d'une PDO 
         try {

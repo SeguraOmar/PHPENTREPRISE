@@ -1,0 +1,3 @@
+Options -Indexes
+ErrorDocument 403 http://phpentreprise.test/custom403.html
+ErrorDocument 404 http://phpentreprise.test/custom404.html

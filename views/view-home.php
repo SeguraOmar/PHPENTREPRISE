@@ -58,10 +58,8 @@
     <nav>
         <div class="nav-wrapper background-nav">
             <!-- barre du haut  -->
-            <ul id="nav-mobile" class="right hide-on-med-and-down">
-                <li><a href="#">Lien 1</a></li>
-                <li><a href="#">Lien 2</a></li>
-                <li><a href="#">Lien 3</a></li>
+            <ul class="right">
+                <li><a href="../controllers/controller-deconnect.php"><button class="btn">Se déconnecter</button></a></li>
             </ul>
         </div>
     </nav>
@@ -147,7 +145,7 @@
                             <?php foreach (Entreprise::lastFiveTrajets($_SESSION['enterprise']['enterprise_id']) as $trajet) : ?>
                                 <h2>Informations</h2>
                                 <p><?= $trajet['ride_date'] ?></p>
-                                <p><?= $trajet['ride_distance'] ?></p>
+                                <p><?= $trajet['ride_distance'] ?>km</p>
                             <?php endforeach; ?>
                         </div>
                     </div>
