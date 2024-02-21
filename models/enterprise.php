@@ -233,6 +233,108 @@ class Entreprise
             return false;
         }
     }
+    public static function getAllUsers(int $enterprise_id)
+    {
+        try {
+            // Création d'un objet $db selon la classe PDO
+            $db = new PDO("mysql:host=localhost;dbname=" . DB_NAME, DB_USER, DB_PASS);
+
+            // Stocker ma requête dans une variable
+            $sql = "SELECT * FROM userprofil NATURAL JOIN enterprise WHERE enterprise_id = :enterprise_id";
+
+            // Préparation de la requête pour éviter les injections SQL 
+            $query = $db->prepare($sql);
+
+            // On relie les paramètres à nos marqueurs nominatifs à l'aide d'un bindValue 
+            $query->bindValue(':enterprise_id', $enterprise_id, PDO::PARAM_INT);
+
+            // Exécution de la requête
+            $query->execute();
+
+            //Récupération du résultat de la requête dans une variable 
+            $result = $query->fetchALL(PDO::FETCH_ASSOC);
+
+            return json_encode($result);
+
+        } catch (PDOException $e) {
+            echo 'Erreur : ' . $e->getMessage();
+            return false;
+        }
+    }
+    public static function validate($user_id)
+    {
+
+        try {
+            $db = new PDO("mysql:host=localhost;dbname=" . DB_NAME, DB_USER, DB_PASS);
+
+
+            $sql = "UPDATE userprofil SET user_validate = 1 WHERE user_id = :user_id";
+
+            $query = $db->prepare($sql);
+
+            $query->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+
+            $query->execute();
+
+            return true;
+        } catch (PDOException $e) {
+            echo 'Erreur : ' . $e->getMessage();
+            return false;
+        }
+    }
+
+    /**
+     * Méthode qui permet de débloquer un utilisateur.
+     *
+     * @param int $user_id Identifiant de l'utilisateur.
+     *
+     * @return bool Retourne true si l'utilisateur a été débloqué avec succès, sinon false.
+     */
+
+    public static function unvalidate($user_id): bool
+    {
+
+        try {
+            $db = new PDO("mysql:host=localhost;dbname=" . DB_NAME, DB_USER, DB_PASS);
+
+
+            $sql = "UPDATE userprofil SET user_validate = 0 WHERE user_id = :user_id";
+
+            $query = $db->prepare($sql);
+
+            $query->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+
+            $query->execute();
+
+            return true;
+        } catch (PDOException $e) {
+            echo 'Erreur : ' . $e->getMessage();
+            return false;
+        }
+    }
+    public static function UserInformation(int $user_id) {
+        try {
+            $db = new PDO("mysql:host=localhost;dbname=" . DB_NAME, DB_USER, DB_PASS);
+
+            $sql = "SELECT * FROM userprofil WHERE user_id = :user_id";
+
+            $query = $db->prepare($sql);
+
+            $query->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+
+            $query->execute();
+
+            $result = $query->fetch(PDO::FETCH_ASSOC);
+
+            return json_encode($result);
+        } catch (PDOException $e) {
+            echo 'Erreur : ' . $e->getMessage();
+            return false;
+        }
+    
+    }
+
+    
 }
 
 //     public static function deleteAccount(int $Entreprise_ID)

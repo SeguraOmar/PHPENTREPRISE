@@ -116,7 +116,7 @@
                 <div id="user-list-container" class="col s12">
                     <div class="card teal darken-1">
                         <div class="card-content white-text">
-                            <span class="card-title">Les 5 derniers utilisateurs avec comme infos : </span>
+                            <span class="card-title">Les 5 derniers utilisateurs avec comme infos :</span>
                             <div class="user-card-container">
                                 <?php foreach (Entreprise::lastFiveUsers($_SESSION['enterprise']['enterprise_id']) as $user) : ?>
                                     <div class="user-card">
@@ -124,6 +124,9 @@
                                         <img class="user-photo" src="http://BDDPHP.test/assets/image/<?= $user['user_photo']; ?>" alt="Photo de profil">
                                     </div>
                                 <?php endforeach; ?>
+                            </div>
+                            <div class="center-align">
+                                <a href="../controllers/controller-allProfil.php"><button type="button" class="btn waves-effect waves-light">Voir plus</button></a>
                             </div>
                         </div>
                     </div>
